@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA4 Analytics Report - Sample Output</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            background: #0b0b0b;
+            color: #e8e8e8;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Sample banner */
+        .sample-banner {
+            background: #141414;
+            border-bottom: 1px solid #222;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            letter-spacing: 0.3px;
+        }
+        .sample-banner a {
+            color: #8a9a7b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .sample-banner a:hover {
+            text-decoration: underline;
+        }
+
+        .brief {
+            max-width: 680px;
+            margin: 40px auto;
+            background: #141414;
+            border: 1px solid #222;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        /* Header */
+        .report-header {
+            background: #141414;
+            padding: 32px 40px 28px;
+            position: relative;
+            border-bottom: 1px solid #222;
+        }
+        .report-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 40px;
+            right: 40px;
+            height: 3px;
+            background: #8a9a7b;
+        }
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .brand-name {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #e8e8e8;
+            text-transform: uppercase;
+        }
+        .header-date {
+            font-size: 12px;
+            font-weight: 500;
+            color: #888;
+            letter-spacing: 1px;
+        }
+        .header-title {
+            font-size: 22px;
+            font-weight: 300;
+            color: #e8e8e8;
+            letter-spacing: -0.2px;
+        }
+        .header-title strong { font-weight: 700; }
+        .header-sub {
+            font-size: 13px;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* Section labels */
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #8a9a7b;
+            margin-bottom: 16px;
+        }
+
+        /* Sections */
+        .section { padding: 28px 40px; }
+        .section-top { padding: 32px 40px 24px; }
+        .divider { margin: 0 40px; height: 1px; background: #222; }
+
+        /* Metric cards */
+        .metrics-row { text-align: center; }
+        .metric-card {
+            display: inline-block;
+            width: 23%;
+            text-align: center;
+            padding: 20px 8px;
+            vertical-align: top;
+        }
+        .metric-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #e8e8e8;
+            line-height: 1.1;
+        }
+        .metric-change {
+            font-size: 12px;
+            margin-top: 6px;
+        }
+        .change-up { color: #8a9a7b; }
+        .change-down { color: #a85454; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; }
+        th {
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #888;
+            border-bottom: 2px solid #222;
+        }
+        th.left { text-align: left; }
+        th.right { text-align: right; }
+        td {
+            padding: 10px 12px;
+            font-size: 13px;
+            color: #e8e8e8;
+            border-bottom: 1px solid #222;
+        }
+        td.right { text-align: right; }
+        td.bold { font-weight: 600; }
+        td.muted { color: #888; }
+
+        /* Device / New vs Returning blocks */
+        .stat-block {
+            display: inline-block;
+            text-align: center;
+            padding: 16px 8px;
+            vertical-align: top;
+        }
+        .stat-block-3 { width: 30%; }
+        .stat-block-2 { width: 45%; }
+        .stat-block-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 6px;
+        }
+        .stat-block-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e8e8e8;
+        }
+        .stat-block-value.large { font-size: 28px; }
+        .stat-block-sub {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        /* Footer */
+        .report-footer {
+            background: #141414;
+            padding: 24px 40px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+        .footer-title {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #888;
+        }
+        .footer-sub {
+            font-size: 11px;
+            color: #888;
+            margin-top: 6px;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .brief { margin: 20px 12px; }
+            .section, .section-top, .report-header { padding-left: 20px; padding-right: 20px; }
+            .divider { margin: 0 20px; }
+            .metric-card { width: 48%; margin-bottom: 8px; }
+            .report-header::after { left: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sample banner -->
+<div class="sample-banner">
+    Sample output from <a href="https://github.com/sbc1-code/ga4-analytics-report">ga4-analytics-report</a> // Python + GA4 Data API
+</div>
+
+<div class="brief">
+
+    <!-- HEADER -->
+    <div class="report-header">
+        <div class="header-row">
+            <div class="brand-name">NORTHWIND ANALYTICS</div>
+            <div class="header-date">MARCH 09, 2026</div>
+        </div>
+        <div class="header-title">
+            <strong>Analytics Report</strong> | February 2026
+        </div>
+        <div class="header-sub">
+            Feb 07 | Mar 09, 2026 &nbsp;|&nbsp; northwindapp.io
+        </div>
+    </div>
+
+    <!-- OVERVIEW CARDS -->
+    <div class="section-top">
+        <div class="section-label">OVERVIEW</div>
+        <div class="metrics-row">
+            <div class="metric-card">
+                <div class="metric-label">Sessions</div>
+                <div class="metric-value">12,847</div>
+                <div class="metric-change change-up">&#9650; 18.3% vs prior</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Users</div>
+                <div class="metric-value">8,214</div>
+                <div class="metric-change change-up">&#9650; 12.1% vs prior</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Pageviews</div>
+                <div class="metric-value">34,592</div>
+                <div class="metric-change change-up">&#9650; 24.7% vs prior</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Avg Duration</div>
+                <div class="metric-value">2m 41s</div>
+                <div class="metric-change change-down">&#9660; 3.2% vs prior</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- TOP PAGES -->
+    <div class="section">
+        <div class="section-label">TOP PAGES</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="left">Page</th>
+                    <th class="right">Views</th>
+                    <th class="right">Users</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>/</td>
+                    <td class="right bold">8,412</td>
+                    <td class="right muted">4,287</td>
+                </tr>
+                <tr>
+                    <td>/pricing</td>
+                    <td class="right bold">4,891</td>
+                    <td class="right muted">2,934</td>
+                </tr>
+                <tr>
+                    <td>/features</td>
+                    <td class="right bold">3,746</td>
+                    <td class="right muted">2,108</td>
+                </tr>
+                <tr>
+                    <td>/blog/api-best-practices</td>
+                    <td class="right bold">3,214</td>
+                    <td class="right muted">2,451</td>
+                </tr>
+                <tr>
+                    <td>/docs/getting-started</td>
+                    <td class="right bold">2,887</td>
+                    <td class="right muted">1,692</td>
+                </tr>
+                <tr>
+                    <td>/blog/scaling-analytics-pipelines</td>
+                    <td class="right bold">2,103</td>
+                    <td class="right muted">1,547</td>
+                </tr>
+                <tr>
+                    <td>/integrations</td>
+                    <td class="right bold">1,842</td>
+                    <td class="right muted">1,203</td>
+                </tr>
+                <tr>
+                    <td>/about</td>
+                    <td class="right bold">1,204</td>
+                    <td class="right muted">891</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- TRAFFIC SOURCES -->
+    <div class="section">
+        <div class="section-label">TRAFFIC SOURCES</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="left">Source</th>
+                    <th class="right">Sessions</th>
+                    <th class="right">Bounce</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>google</td>
+                    <td class="right bold">5,643</td>
+                    <td class="right muted">42.1%</td>
+                </tr>
+                <tr>
+                    <td>(direct)</td>
+                    <td class="right bold">3,102</td>
+                    <td class="right muted">38.7%</td>
+                </tr>
+                <tr>
+                    <td>linkedin.com</td>
+                    <td class="right bold">1,847</td>
+                    <td class="right muted">51.3%</td>
+                </tr>
+                <tr>
+                    <td>twitter.com</td>
+                    <td class="right bold">982</td>
+                    <td class="right muted">56.8%</td>
+                </tr>
+                <tr>
+                    <td>github.com</td>
+                    <td class="right bold">714</td>
+                    <td class="right muted">29.4%</td>
+                </tr>
+                <tr>
+                    <td>newsletter</td>
+                    <td class="right bold">559</td>
+                    <td class="right muted">33.2%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- GEOGRAPHY -->
+    <div class="section">
+        <div class="section-label">GEOGRAPHY</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="left">Country</th>
+                    <th class="right">Sessions</th>
+                    <th class="right">Users</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>United States</td>
+                    <td class="right bold">6,423</td>
+                    <td class="right muted">4,187</td>
+                </tr>
+                <tr>
+                    <td>United Kingdom</td>
+                    <td class="right bold">1,891</td>
+                    <td class="right muted">1,204</td>
+                </tr>
+                <tr>
+                    <td>Germany</td>
+                    <td class="right bold">1,247</td>
+                    <td class="right muted">843</td>
+                </tr>
+                <tr>
+                    <td>Canada</td>
+                    <td class="right bold">1,103</td>
+                    <td class="right muted">712</td>
+                </tr>
+                <tr>
+                    <td>India</td>
+                    <td class="right bold">894</td>
+                    <td class="right muted">621</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- DEVICES -->
+    <div class="section">
+        <div class="section-label">DEVICES</div>
+        <div style="text-align:center;">
+            <div class="stat-block stat-block-3">
+                <div class="stat-block-label">Desktop</div>
+                <div class="stat-block-value">8,917</div>
+                <div class="stat-block-sub">avg 3m 12s</div>
+            </div>
+            <div class="stat-block stat-block-3">
+                <div class="stat-block-label">Mobile</div>
+                <div class="stat-block-value">3,412</div>
+                <div class="stat-block-sub">avg 1m 48s</div>
+            </div>
+            <div class="stat-block stat-block-3">
+                <div class="stat-block-label">Tablet</div>
+                <div class="stat-block-value">518</div>
+                <div class="stat-block-sub">avg 2m 34s</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- NEW VS RETURNING -->
+    <div class="section">
+        <div class="section-label">NEW VS RETURNING</div>
+        <div style="text-align:center;">
+            <div class="stat-block stat-block-2">
+                <div class="stat-block-label">New Visitors</div>
+                <div class="stat-block-value large">9,234</div>
+                <div class="stat-block-sub">6,142 users</div>
+            </div>
+            <div class="stat-block stat-block-2">
+                <div class="stat-block-label">Returning</div>
+                <div class="stat-block-value large">3,613</div>
+                <div class="stat-block-sub">2,072 users</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="report-footer">
+        <div class="footer-title">Analytics Report</div>
+        <div class="footer-sub">
+            Data: Google Analytics 4 &nbsp;|&nbsp; Property: northwindapp.io
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
