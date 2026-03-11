@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GA4 Analytics Report - Sample Output</title>
+    <meta name="description" content="Styled GA4 analytics report with period-over-period comparisons, device breakdowns, and engagement metrics.">
+    <meta property="og:title" content="GA4 Analytics Report - Sample Output">
+    <meta property="og:description" content="Styled GA4 analytics report with period-over-period comparisons, device breakdowns, and engagement metrics.">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
@@ -250,6 +253,17 @@
             margin-top: 6px;
         }
 
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            border: 0;
+        }
+
         /* Responsive */
         @media (max-width: 700px) {
             .brief { margin: 20px 12px; }
@@ -261,6 +275,8 @@
     </style>
 </head>
 <body>
+
+<h1 class="sr-only">GA4 Analytics Report</h1>
 
 <!-- Sample banner -->
 <div class="sample-banner">
